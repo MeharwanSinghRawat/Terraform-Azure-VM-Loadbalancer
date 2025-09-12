@@ -51,3 +51,10 @@ module "network_security_group" {
 
 }
 
+module "azure_bation" {
+  source       = "../Child_Module/azurerm_bastion"
+  azure_bation = var.azure_bation
+  depends_on   = [module.public_Ip]
+
+}
+

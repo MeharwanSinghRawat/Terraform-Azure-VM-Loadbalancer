@@ -38,3 +38,9 @@ variable "loadbalancer" {
 variable "network_nsg" {
 
 }
+
+
+variable "azure_bation" {
+  type = map(any)
+
+}
