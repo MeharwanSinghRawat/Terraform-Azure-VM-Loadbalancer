@@ -33,7 +33,7 @@ resource "azurerm_lb_probe" "lb_prob" {
 resource "azurerm_network_interface_backend_address_pool_association" "lb_nic_assocation" {
   for_each = var.network_nic
   network_interface_id    = data.azurerm_network_interface.nic[each.key].id
-  ip_configuration_name   = "testconfiguration1"
+  ip_configuration_name   = "internal" 
   backend_address_pool_id = azurerm_lb_backend_address_pool.backend_pool["lb1"].id
 }
 
