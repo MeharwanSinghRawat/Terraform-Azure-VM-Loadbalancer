@@ -44,3 +44,13 @@ variable "azure_bation" {
   type = map(any)
 
 }
+
+variable "natgateway" {
+  
+}
+
+
+# variable "sql_data_server" {
+#   type = map(any)
+
+# }

@@ -58,3 +58,18 @@ module "azure_bation" {
 
 }
 
+module "natgaeway" {
+  source = "../Child_Module/azurerm_netgatway"
+  natgateway = var.natgateway
+  subnet = var.subnet
+  depends_on = [module.subnet,module.public_Ip ]
+  
+}
+
+
+# module "azurerm_mssql_server" {
+#   source          = "../Child_Module/azurerm_sql_dataserver"
+#   sql_data_server = var.sql_data_server
+#   depends_on = [ module.resource_group ]
+
+# }

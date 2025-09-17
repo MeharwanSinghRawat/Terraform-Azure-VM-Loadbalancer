@@ -3,7 +3,7 @@ resource_group = {
   rg1 = {
 
     rg_name  = "mehar_rg"
-    location = "central india"
+    location = "east us"
   }
 
 }
@@ -12,7 +12,7 @@ virtual_network = {
   vnet1 = {
     vnet_name     = "meharVnet"
     rg_name       = "mehar_rg"
-    location      = "central india"
+    location      = "east us"
     address_space = ["10.0.0.0/16"]
   }
 
@@ -23,7 +23,7 @@ subnet = {
     subnet_name      = "meharsubent1"
     vnet_name        = "meharVnet"
     rg_name          = "mehar_rg"
-    location         = "central india"
+    location         = "east us"
     address_prefixes = ["10.0.0.0/24"]
 
   }
@@ -32,7 +32,7 @@ subnet = {
     subnet_name      = "meharsubent2"
     vnet_name        = "meharVnet"
     rg_name          = "mehar_rg"
-    location         = "central india"
+    location         = "east us"
     address_prefixes = ["10.0.1.0/24"]
 
   }
@@ -45,7 +45,7 @@ public_ip = {
 
     pip_name          = "mehapip1"
     rg_name           = "mehar_rg"
-    location          = "central india"
+    location          = "east us"
     allocation_method = "Static"
 
   }
@@ -55,7 +55,16 @@ public_ip = {
 
     pip_name          = "mehapip2"
     rg_name           = "mehar_rg"
-    location          = "central india"
+    location          = "east us"
+    allocation_method = "Static"
+
+  }
+
+   natgatway_pip = {
+
+    pip_name          = "mehapip3"
+    rg_name           = "mehar_rg"
+    location          = "east us"
     allocation_method = "Static"
 
   }
@@ -68,7 +77,7 @@ public_ip = {
 network_nic = {
   nic1 = {
     nic_name        = "meharnic1"
-    location        = "central india"
+    location        = "east us"
     rg_name         = "mehar_rg"
     ip_config_name  = "internal"
     private_ip_meth = "Dynamic"
@@ -78,7 +87,7 @@ network_nic = {
 
   nic2 = {
     nic_name        = "meharnic2"
-    location        = "central india"
+    location        = "east us"
     rg_name         = "mehar_rg"
     ip_config_name  = "internal"
     private_ip_meth = "Dynamic"
@@ -94,7 +103,7 @@ virtual_machine = {
 
     vm_name        = "lbvm1"
     rg_name        = "mehar_rg"
-    location       = "central india"
+    location       = "east us"
     vm_size        = "Standard_F2"
     admin_username = "Useradmin"
     admin_password = "Useradmin@1234"
@@ -103,10 +112,9 @@ virtual_machine = {
   }
 
   vm2 = {
-
     vm_name        = "lbvm2"
     rg_name        = "mehar_rg"
-    location       = "central india"
+    location       = "east us"
     vm_size        = "Standard_F2"
     admin_username = "Useradmin"
     admin_password = "Useradmin@1234"
@@ -119,7 +127,7 @@ loadbalancer = {
 
   lb1 = {
     lb_name           = "TestLoadBalancer"
-    location          = "central india"
+    location          = "east us"
     rg_name           = "mehar_rg"
     frontend_ip_name  = "frontendlbip"
     backend_pool_name = "BackEndAddressPool"
@@ -128,9 +136,8 @@ loadbalancer = {
     frontend_port     = 80
     backend_port      = 80
     lb_prob_name      = "lbprob1"
-    lb_prob_port      = 20
+    lb_prob_port      = 80
     pip_name          = "mehapip1"
-
 
   }
 }
@@ -139,7 +146,7 @@ network_nsg = {
 
   nsg1 = {
     nsg_name                   = "securensg"
-    location                   = "central india"
+    location                   = "east us"
     rg_name                    = "mehar_rg"
     rule_name                  = "allow_http"
     priority                   = 100
@@ -153,6 +160,20 @@ network_nsg = {
 
   }
 
+ nsg2 = {
+  nsg_name                   = "securensg"
+  location                   = "east us"
+  rg_name                    = "mehar_rg"
+  rule_name                  = "Allow-Internet-Outbound"
+  priority                   = 101
+  direction                  = "Outbound"
+  access                     = "Allow"
+  protocol                   = "*"
+  source_port_range          = "*"
+  destination_port_range     = "*"
+  source_address_prefix      = "*"
+  destination_address_prefix = "Internet"
+}
 }
 
 azure_bation = {
@@ -162,9 +183,44 @@ azure_bation = {
     vnet_name          = "meharVnet"
     address_prefixes   = ["10.0.2.0/27"]
     bastion_name       = "test_bastion"
-    location           = "central india"
+    location           = "east us"
     pip_name           = "mehapip2"
 
   }
 
 }
+
+
+natgateway = {
+
+ntgtway = {
+     
+     natgate_name = "natgate_name"
+     location = "east us"
+     rg_name = "mehar_rg"
+     sku_name = "Standard"
+    pip_name = "mehapip3"
+        
+
+}
+
+}
+
+
+
+# sql_data_server = {
+
+#   sqldata = {
+
+#     sql_server_name = "mssqlserver"
+#     rg_name         = "mehar_rg"
+#     location        = "east us"
+#     version         = "12.0"
+#     userlogin       = "Useradmin"
+#     userpassword    = "Useradmin@1234"
+#     minimum_version = "1.2"
+#     database_name = "example-db"
+
+#   }
+
+# }
