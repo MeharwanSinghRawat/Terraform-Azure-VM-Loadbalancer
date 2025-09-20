@@ -22,6 +22,8 @@ resource "azurerm_lb_rule" "lbrule" {
   frontend_port                  = each.value.frontend_port
   backend_port                   =  each.value.backend_port
   frontend_ip_configuration_name =  each.value.frontend_ip_name
+  backend_address_pool_ids = [azurerm_lb_backend_address_pool.backend_pool[each.key].id]
+  probe_id = azurerm_lb_probe.lb_prob[each.key].id
 }
 resource "azurerm_lb_probe" "lb_prob" {
     for_each = var.loadbalancer
